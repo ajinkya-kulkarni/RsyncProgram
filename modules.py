@@ -22,6 +22,8 @@ def sync_directories(srcdir, dstdir):
     Exception: If there is not enough space in the destination directory to copy the source directory.
 
     """
+    errors = []  # List to store any error messages
+
     try:
         # Create a new directory in the destination with a timestamp
         timestamp = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
@@ -56,7 +58,9 @@ def sync_directories(srcdir, dstdir):
                     try:
                         shutil.copy2(src_file, dst_file)
                     except Exception as e:
-                        print(f"Error copying file {src_file}: {e}")
+                        error_msg = f"Error copying file {src_file}: {e}"
+                        print(error_msg)
+                        errors.append(error_msg)
 
                     files_copied += 1
                     pbar.update(1)
@@ -64,6 +68,15 @@ def sync_directories(srcdir, dstdir):
         print(f"\n{srcdir} directory synced to {new_dstdir}\n")
 
     except Exception as e:
-        print(f"Error syncing {srcdir} directory: {e}")
+        error_msg = f"Error syncing {srcdir} directory: {e}"
+        print(error_msg)
+        errors.append(error_msg)
+
+    # Dump any error messages to a file
+    if errors:
+        error_file_name = f"Errors_{timestamp}.txt"
+        with open(error_file_name, "w") as f:
+            f.write("\n".join(errors))
+        print(f"{len(errors)} error messages written to {error_file_name}")
 
 ########################################################################################
