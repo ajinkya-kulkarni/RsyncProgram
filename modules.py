@@ -43,14 +43,14 @@ def sync_directories(srcdir, dstdir):
         # Sync the directory and display a feedback message
         print(f"\nSyncing {srcdir} directory...\n")
 
-        # Use tqdm to display a green progress bar
+        # Use tqdm to display a progress bar
         files_copied = 0
         total_files = 0
 
         for root, dirs, files in os.walk(srcdir):
             total_files += len(files)
 
-        with tqdm(total=total_files, color='green') as pbar:
+        with tqdm(total=total_files) as pbar:
             for root, dirs, files in os.walk(srcdir):
                 for file in files:
                     src_file = os.path.join(root, file)
