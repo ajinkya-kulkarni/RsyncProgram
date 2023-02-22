@@ -50,7 +50,7 @@ def sync_directories(srcdir, dstdir):
         for root, dirs, files in os.walk(srcdir):
             total_files += len(files)
 
-        with tqdm(total=total_files, bar_color='green') as pbar:
+        with tqdm(total=total_files, color='green') as pbar:
             for root, dirs, files in os.walk(srcdir):
                 for file in files:
                     src_file = os.path.join(root, file)
