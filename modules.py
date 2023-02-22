@@ -20,8 +20,11 @@ def sync_directories(srcdir, dstdir):
 
     Raises:
     Exception: If there is not enough space in the destination directory to copy the source directory.
-
+    If any errors occur during copying, an error message will be printed to the console and added to the `errors` list. 
+    At the end of the function, any errors in the `errors` list will be dumped to a text file named `Errors_<timestamp>.txt`. 
+    If no errors occur, this file will not be created.
     """
+
     errors = []  # List to store any error messages
 
     try:
@@ -40,14 +43,14 @@ def sync_directories(srcdir, dstdir):
         # Sync the directory and display a feedback message
         print(f"\nSyncing {srcdir} directory...\n")
 
-        # Use tqdm to display a progress bar
+        # Use tqdm to display a green progress bar
         files_copied = 0
         total_files = 0
 
         for root, dirs, files in os.walk(srcdir):
             total_files += len(files)
 
-        with tqdm(total=total_files) as pbar:
+        with tqdm(total=total_files, bar_color='green') as pbar:
             for root, dirs, files in os.walk(srcdir):
                 for file in files:
                     src_file = os.path.join(root, file)
