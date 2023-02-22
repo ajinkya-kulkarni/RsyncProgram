@@ -17,9 +17,6 @@ from modules import *
 
 ########################################################################################
 
-# Clear the terminal output
-os.system('clear')
-
 # Define the source and destination directories
 srcdir1 = "/home/ajinkya/Desktop/"
 dstdir1 = "/media/ajinkya/Ajinkya/Desktop_Backup/"
