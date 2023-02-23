@@ -83,5 +83,4 @@ def sync_directories(srcdir, dstdir):
             f.write("\n".join(errors))
         print("{} error messages written to {}".format(len(errors), error_file_name))
 
-
 ########################################################################################
