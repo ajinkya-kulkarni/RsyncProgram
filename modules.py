@@ -70,6 +70,7 @@ def sync_directories(srcdir, dstdir):
 
         print(f"\n{srcdir} directory synced to {new_dstdir}\n")
 
+
     except Exception as e:
         error_msg = f"Error syncing {srcdir} directory: {e}"
         print(error_msg)
@@ -77,9 +78,10 @@ def sync_directories(srcdir, dstdir):
 
     # Dump any error messages to a file
     if errors:
-        error_file_name = f"Errors_{timestamp}.txt"
+        error_file_name = "/home/ajinkya/Desktop/MostUsedShellScripts/Errors_{}.txt".format(timestamp)
         with open(error_file_name, "w") as f:
             f.write("\n".join(errors))
-        print(f"{len(errors)} error messages written to {error_file_name}")
+        print("{} error messages written to {}".format(len(errors), error_file_name))
+
 
 ########################################################################################
