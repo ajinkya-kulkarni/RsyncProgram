@@ -48,8 +48,8 @@ sync_directories(srcdir2, dstdir2)
 ########################################################################################
 
 # Print a message indicating that the script has finished executing
-print("")
+print()
 print("All Done!")
-print("")
+print()
 
 ########################################################################################
