@@ -3,9 +3,6 @@
 # Run this script as: python /home/ajinkya/Desktop/RsyncProgram/MainProgram.py
 
 import os
-import shutil
-from tqdm import tqdm
-import datetime
 
 import sys
 # Don't generate the __pycache__ folder locally
@@ -15,33 +12,38 @@ sys.tracebacklimit = 0
 
 ########################################################################################
 
+os.system('clear')
+
+########################################################################################
+
 from modules import *
 
 ########################################################################################
 
 # Define the source and destination directories
 srcdir1 = "/home/ajinkya/Desktop/"
-dstdir1 = "/media/ajinkya/Ajinkya/Desktop_Backup/"
+dstdir1 = "/media/ajinkya/BackupDisk/Desktop_Backup/"
 
 srcdir2 = "/media/ajinkya/Ajinkya-Data/"
-dstdir2 = "/media/ajinkya/Ajinkya/DataSSD_Backup/"
+dstdir2 = "/media/ajinkya/BackupDisk/DataSSD_Backup/"
 
 ########################################################################################
 
 # Check if the source and destination directories exist
-for srcdir, dstdir in [(srcdir1, dstdir1), (srcdir2, dstdir2)]:
-	if not os.path.isdir(srcdir):
-		print(f"Error: {srcdir} does not exist")
-	elif not os.path.isdir(dstdir):
-		print(f"Error: {dstdir} does not exist")
-	else:
-		sync_directories(srcdir, dstdir)
+check_directory(srcdir1)
+check_directory(dstdir1)
+check_directory(srcdir2)
+check_directory(dstdir2)
 
 # Delete the contents of dstdir1 and dstdir2
-for dstdir in [dstdir1, dstdir2]:
-	if os.path.isdir(dstdir):
-		shutil.rmtree(dstdir)
-		os.makedirs(dstdir)
+empty_directory(dstdir1)
+empty_directory(dstdir2)
+
+print()
+
+# Sync the directories
+sync_directories(srcdir1, dstdir1)
+sync_directories(srcdir2, dstdir2)
 
 ########################################################################################
 

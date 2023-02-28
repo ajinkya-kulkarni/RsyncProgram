@@ -29,7 +29,7 @@ def sync_directories(srcdir, dstdir):
 
 	try:
 		# Create a new directory in the destination with a timestamp
-		timestamp = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+		timestamp = datetime.datetime.now().strftime("%d_%b_%Y_%H_%M")
 		new_dstdir = os.path.join(dstdir, f"Backup_{timestamp}")
 		os.makedirs(new_dstdir, exist_ok=True)
 
@@ -41,7 +41,7 @@ def sync_directories(srcdir, dstdir):
 			raise Exception(f"Not enough space in {new_dstdir} to copy {srcdir}")
 
 		# Sync the directory and display a feedback message
-		print(f"\nSyncing {srcdir} directory...\n")
+		print(f"\nSyncing {srcdir} directory to {new_dstdir}\n")
 
 		# Use tqdm to display a progress bar
 		files_copied = 0
@@ -68,8 +68,7 @@ def sync_directories(srcdir, dstdir):
 					files_copied += 1
 					pbar.update(1)
 
-		print(f"\n{srcdir} directory synced to {new_dstdir}\n")
-
+		print(f"\n{srcdir} directory successfully synced to {new_dstdir}\n")
 
 	except Exception as e:
 		error_msg = f"Error syncing {srcdir} directory: {e}"
@@ -82,5 +81,52 @@ def sync_directories(srcdir, dstdir):
 		with open(error_file_name, "w") as f:
 			f.write("\n".join(errors))
 		print("{} error messages written to {}".format(len(errors), error_file_name))
+
+########################################################################################
+
+def empty_directory(dir_path):
+	"""Empty the contents of a directory and all its subdirectories.
+
+	This function recursively deletes all files and subdirectories in the specified directory
+	and all its subdirectories. It does not delete the specified directory itself.
+
+	Args:
+		dir_path (str): The path of the directory to empty.
+
+	Raises:
+		NotADirectoryError: If the specified path does not point to a directory.
+	"""
+	if not os.path.isdir(dir_path):
+		raise NotADirectoryError(f"{dir_path} is not a directory")
+
+	for filename in os.listdir(dir_path):
+		file_path = os.path.join(dir_path, filename)
+		try:
+			if os.path.isfile(file_path) or os.path.islink(file_path):
+				os.unlink(file_path)
+			elif os.path.isdir(file_path):
+				shutil.rmtree(file_path)
+		except Exception as e:
+			print(f"Error deleting {file_path}: {e}")
+
+	print(f"Successfully emptied {dir_path}")
+
+########################################################################################
+
+def check_directory(directory):
+	"""
+	Check if a directory exists.
+
+	Args:
+		directory (str): The path of the directory to check.
+
+	Raises:
+		NotADirectoryError: If the directory does not exist.
+
+	Returns:
+		None
+	"""
+	if not os.path.isdir(directory):
+		raise NotADirectoryError(f"{directory} does not exist")
 
 ########################################################################################
