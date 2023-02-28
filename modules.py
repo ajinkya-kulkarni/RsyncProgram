@@ -44,13 +44,9 @@ def sync_directories(srcdir, dstdir):
 		print(f"\nSyncing {srcdir} directory to {new_dstdir}\n")
 
 		# Use tqdm to display a progress bar
-		files_copied = 0
-		total_files = 0
+		total_files = sum(len(files) for _, _, files in os.walk(srcdir))
 
-		for root, dirs, files in os.walk(srcdir):
-			total_files += len(files)
-
-		with tqdm(total=total_files) as pbar:
+		with tqdm(total=total_files, desc = 'Syncing files') as pbar:
 			for root, dirs, files in os.walk(srcdir):
 				for file in files:
 					src_file = os.path.join(root, file)
@@ -65,7 +61,6 @@ def sync_directories(srcdir, dstdir):
 						print(error_msg)
 						errors.append(error_msg)
 
-					files_copied += 1
 					pbar.update(1)
 
 		print(f"\n{srcdir} directory successfully synced to {new_dstdir}\n")
