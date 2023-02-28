@@ -41,4 +41,4 @@ To use the script, follow these steps:
 
 ### License
 
-This script is licensed under the [GNU GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/gpl-3.0.en.html).
+This script is licensed under the [GPL-3.0 license](https://www.gnu.org/licenses/gpl-3.0.en.html).
