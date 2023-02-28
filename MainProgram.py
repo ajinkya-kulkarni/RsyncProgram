@@ -20,30 +20,34 @@ from modules import *
 
 ########################################################################################
 
-# Define the source and destination directories
-srcdir1 = "/home/ajinkya/Desktop/"
-dstdir1 = "/media/ajinkya/BackupDisk/Desktop_Backup/"
+# Define a list of source and destination directories
+directories = [
+	{
+		'srcdir': '/home/ajinkya/Desktop/',
+		'dstdir': '/media/ajinkya/BackupDisk/Desktop_Backup/'
+	},
+	{
+		'srcdir': '/media/ajinkya/Ajinkya-Data/',
+		'dstdir': '/media/ajinkya/BackupDisk/DataSSD_Backup/'
+	}
+]
 
-srcdir2 = "/media/ajinkya/Ajinkya-Data/"
-dstdir2 = "/media/ajinkya/BackupDisk/DataSSD_Backup/"
-
-########################################################################################
-
-# Check if the source and destination directories exist
-check_directory(srcdir1)
-check_directory(dstdir1)
-check_directory(srcdir2)
-check_directory(dstdir2)
-
-# Delete the contents of dstdir1 and dstdir2
-empty_directory(dstdir1)
-empty_directory(dstdir2)
-
-print()
-
-# Sync the directories
-sync_directories(srcdir1, dstdir1)
-sync_directories(srcdir2, dstdir2)
+# Loop through the list of directories and sync each pair
+for directory in directories:
+	srcdir = directory['srcdir']
+	dstdir = directory['dstdir']
+	
+	# Check if the source and destination directories exist
+	check_directory(srcdir)
+	check_directory(dstdir)
+	
+	# Delete the contents of the destination directory
+	empty_directory(dstdir)
+	
+	# Sync the directories
+	sync_directories(srcdir, dstdir)
+	
+	print()
 
 ########################################################################################
 
