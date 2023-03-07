@@ -29,7 +29,7 @@ def sync_directories(srcdir, dstdir):
 
 	try:
 		# Create a new directory in the destination with a timestamp
-		timestamp = datetime.datetime.now().strftime("%d_%b_%Y_%H%M_hrs")
+		timestamp = datetime.datetime.now().strftime("%d_%b_%Y_%H:%M")
 		new_dstdir = os.path.join(dstdir, f"Backup_{timestamp}")
 		os.makedirs(new_dstdir, exist_ok=True)
 
